@@ -1,0 +1,8 @@
+openapi: "3.0.3"
+info:
+  title: "TakaoTechDashboardBE API"
+  description: "TakaoTechDashboardBE API"
+  version: "1.0.0"
+servers:
+  - url: "https://TakaoTechDashboardBE"
+paths: { }
