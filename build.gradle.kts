@@ -61,4 +61,7 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-json:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-kotlin-datetime:$exposedVersion")
 
+    implementation("com.h2database:h2:2.1.214")
+
+
 }
