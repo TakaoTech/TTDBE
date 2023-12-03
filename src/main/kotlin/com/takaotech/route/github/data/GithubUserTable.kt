@@ -16,4 +16,7 @@ object GithubUserTable : IdTable<Long>("id") {
 
 class GithubUserEntity(id: EntityID<Long>) : LongEntity(id) {
     companion object : LongEntityClass<GithubUserEntity>(GithubUserTable)
+
+    var name by GithubUserTable.name
+    var url by GithubUserTable.url
 }

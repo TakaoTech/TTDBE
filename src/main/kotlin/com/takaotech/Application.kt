@@ -1,7 +1,6 @@
 package com.takaotech
 
 import com.takaotech.plugins.*
-import com.takaotech.route.github.githubRoute
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.tomcat.*
@@ -16,9 +15,7 @@ fun Application.module() {
     configureHTTP()
     configureMonitoring()
     configureSerialization()
+    initExposed()
     configureRouting()
 
-    initExposed()
-
-    githubRoute()
 }
