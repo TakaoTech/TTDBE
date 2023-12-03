@@ -1,10 +1,16 @@
 package com.takaotech.di
 
+import io.ktor.util.logging.*
 import org.jetbrains.exposed.sql.Database
 import org.kohsuke.github.GitHubBuilder
+import org.koin.core.module.Module
 import org.koin.dsl.module
 
-val generalModule = module {
+fun getGeneralModule(log: Logger): Module = module {
+    single<Logger> {
+        log
+    }
+
     single {
         GitHubBuilder().apply {
             withOAuthToken(System.getenv("GITHUB_TOKEN"))

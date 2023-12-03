@@ -6,7 +6,7 @@ import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.IdTable
 import org.jetbrains.exposed.sql.Column
 
-object GithubUserTable : IdTable<Long>("id") {
+object GithubUserTable : IdTable<Long>() {
     override val id: Column<EntityID<Long>> = long("id").entityId()
     val name: Column<String> = text("name")
     val url: Column<String> = text("url")

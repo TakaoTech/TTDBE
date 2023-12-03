@@ -40,7 +40,7 @@ repositories {
 }
 
 tasks.withType<Test>().configureEach {
-    useJUnitPlatform()
+//    useJUnitPlatform()
 
     val propertiesMap = localProps.entries.map {
         it.key as String to it.value as String
@@ -80,7 +80,7 @@ dependencies {
     implementation("io.insert-koin:koin-annotations:1.3.0")
 //    implementation("com.github.ProjectMapK:jackson-module-kogera:2.16.0-beta8")
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.module/jackson-module-kotlin
-//    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.16.0")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.16.0")
     ksp("io.insert-koin:koin-ksp-compiler:1.3.0")
 
     implementation("org.kohsuke:github-api:1.318")

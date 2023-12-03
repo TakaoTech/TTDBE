@@ -8,7 +8,7 @@ import org.jetbrains.exposed.dao.id.IdTable
 import org.jetbrains.exposed.sql.Column
 import org.jetbrains.exposed.sql.json.json
 
-object GithubDepositoryTable : IdTable<Long>("id") {
+object GithubDepositoryTable : IdTable<Long>() {
     /**
      * GitHub Repository Id
      */
@@ -18,7 +18,8 @@ object GithubDepositoryTable : IdTable<Long>("id") {
     val fullName: Column<String> = text("full_name")
     val url: Column<String> = text("url")
 
-    val user: Column<EntityID<Long>> = long("user_id").entityId() references GithubUserTable.id
+    //    val user: Column<EntityID<Long>> = long("user_id").entityId() references GithubUserTable.id
+    val user: Column<EntityID<Long>> = reference("user_id", GithubUserTable)
 
     //TODO Use Ktor JSON
     val languages: Column<Map<String, Long>> = json("languages", Json.Default)
@@ -27,13 +28,15 @@ object GithubDepositoryTable : IdTable<Long>("id") {
     override val primaryKey = PrimaryKey(id)
 }
 
-class GithubRepositoryEntity(id: EntityID<Long>) : LongEntity(id) {
-    companion object : LongEntityClass<GithubRepositoryEntity>(GithubDepositoryTable)
+class GithubDepositoryEntity(id: EntityID<Long>) : LongEntity(id) {
+    companion object : LongEntityClass<GithubDepositoryEntity>(GithubDepositoryTable)
 
     var name by GithubDepositoryTable.name
     var fullName by GithubDepositoryTable.fullName
     var url by GithubDepositoryTable.url
-    val user by GithubUserEntity referrersOn GithubUserTable.id
+    var user by GithubDepositoryTable.user
+
+    //    val userRef by GithubUserEntity referrersOn GithubUserTable.id
     var languages by GithubDepositoryTable.languages
 
 }

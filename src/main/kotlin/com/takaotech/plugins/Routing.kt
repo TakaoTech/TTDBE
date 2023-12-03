@@ -2,7 +2,6 @@ package com.takaotech.plugins
 
 import com.takaotech.route.github.githubRoute
 import com.takaotech.route.github.repository.GithubRepository
-import com.takaotech.utils.serializeToJson
 import io.ktor.resources.*
 import io.ktor.server.application.*
 import io.ktor.server.http.content.*
@@ -22,11 +21,10 @@ fun Application.configureRouting() {
         get("/") {
             val startList = githubRepository.getAllStarts()
 
-            call.respondText(
-                startList
-                    .first()
-                    .serializeToJson()
-            )
+//            call.respondText(
+//                startList
+//                    .first()
+//            )
         }
         // Static plugin. Try to access `/static/index.html`
         static("/static") {
