@@ -14,13 +14,32 @@ object GithubDepositoryTable : IdTable<Long>() {
      */
     override val id: Column<EntityID<Long>> = long("id").entityId()
 
+    /**
+     * Repository name
+     */
     val name: Column<String> = text("name")
+
+    /**
+     * Full name of repository
+     * <user/organization>/<name repository>
+     */
     val fullName: Column<String> = text("full_name")
+
+    /**
+     * Url of repository
+     */
     val url: Column<String> = text("url")
 
     //    val user: Column<EntityID<Long>> = long("user_id").entityId() references GithubUserTable.id
+
+    /**
+     * User/Organization of repository
+     */
     val user: Column<EntityID<Long>> = reference("user_id", GithubUserTable)
 
+    /**
+     * Map of repository programming languages
+     */
     //TODO Use Ktor JSON
     val languages: Column<Map<String, Long>> = json("languages", Json.Default)
 
