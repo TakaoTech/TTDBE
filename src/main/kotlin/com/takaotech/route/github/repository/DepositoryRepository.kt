@@ -3,8 +3,10 @@ package com.takaotech.route.github.repository
 import com.takaotech.route.github.data.GithubDepositoryEntity
 import com.takaotech.route.github.data.GithubDepositoryTable
 import com.takaotech.route.github.data.GithubUserEntity
+import com.takaotech.route.github.data.TagsEntity
 import com.takaotech.route.github.model.GHRepository
 import org.jetbrains.exposed.sql.Database
+import org.jetbrains.exposed.sql.SizedCollection
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.koin.core.annotation.Factory
@@ -49,6 +51,14 @@ class DepositoryRepository(private val database: Database) {
                     }.id
                     languages = it.languages
                 }
+            }
+        }
+    }
+
+    fun setTagsAtRepository(repositoryId: Long, tags: List<TagsEntity>) {
+        transaction {
+            GithubDepositoryEntity.findById(repositoryId)?.let {
+                it.tags = SizedCollection(tags)
             }
         }
     }

@@ -43,6 +43,8 @@ object GithubDepositoryTable : IdTable<Long>() {
     //TODO Use Ktor JSON
     val languages: Column<Map<String, Long>> = json("languages", Json.Default)
 
+    val category: Column<MainCategory> = enumerationByName("category", 50)
+
 
     override val primaryKey = PrimaryKey(id)
 }
@@ -57,5 +59,7 @@ class GithubDepositoryEntity(id: EntityID<Long>) : LongEntity(id) {
 
     //    val userRef by GithubUserEntity referrersOn GithubUserTable.id
     var languages by GithubDepositoryTable.languages
+
+    var tags by TagsEntity via GithubDepositoryTagsTable
 
 }
