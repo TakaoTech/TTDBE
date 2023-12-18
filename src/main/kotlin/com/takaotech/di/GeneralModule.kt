@@ -1,5 +1,7 @@
 package com.takaotech.di
 
+import io.ktor.server.auth.*
+import io.ktor.util.*
 import io.ktor.util.logging.*
 import org.jetbrains.exposed.sql.Database
 import org.kohsuke.github.GitHubBuilder
@@ -19,5 +21,16 @@ fun getGeneralModule(log: Logger): Module = module {
 
     single<Database> {
         Database.connect(System.getenv("DB_URL"), System.getenv("DB_DRIVER"))
+    }
+
+    single<UserHashedTableAuth> {
+        val digestFunction = getDigestFunction("SHA-256") { System.getenv("auth.digest") + it.length }
+
+        UserHashedTableAuth(
+            table = mapOf(
+                System.getenv("auth.username") to digestFunction(System.getenv("auth.password")),
+            ),
+            digester = digestFunction
+        )
     }
 }
